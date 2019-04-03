@@ -13,9 +13,8 @@ Learning Journal has an <a href="https://www.learningjournal.guru/courses/kafka/
 `pip install kafka-python` <br>
 
 There are a few good resources for Kafka-Python, here are two that I used: <br>
-<a href="https://kafka-python.readthedocs.io/en/master/usage.html#kafkaconsumer">kafka-python Read the Docs</a> <br>
-Kafka-Python explained in 10 lines of code:  
-<a href="https://towardsdatascience.com/kafka-python-explained-in-10-lines-of-code-800e3e07dad1">Medium Article by Steven Van Dorpe.</a><br>
+The official kafka-python docs - <a href="https://kafka-python.readthedocs.io/en/master/usage.html#kafkaconsumer">kafka-python Read the Docs</a> <br>
+Kafka-Python explained in 10 lines of code - <a href="https://towardsdatascience.com/kafka-python-explained-in-10-lines-of-code-800e3e07dad1">Medium Article by Steven Van Dorpe.</a><br>
 
 ### Instructions to run the Notebooks
 <p align="center">
