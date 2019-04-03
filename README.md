@@ -47,11 +47,13 @@ Kafka-Python explained in 10 lines of code - <a href="https://towardsdatascience
 <p align="center">
 <img src="img/Kafka_producer.png" width="700" height="350" title="screenshot">
 </p>
+
 #### Kafka_consumer-processing-producing.ipynb
 - This notebook consumes a Kafka topic, counts how many times each IP address appears in the stream, classifies IP addresses as possible attackers, and pushes (KafkaProduce) classified IP addresses to a new Kafka topic.
 - Run this notebook after the Kafka_Producer.ipynb.
 <p align="center">
 <img src="img/kafka_process_stream.png" width="700" height="350" title="screenshot">
 </p>
+
 ### Instructions to run the app.py
 Coming Soon!
