@@ -6,7 +6,7 @@ import re
 
 
 # Raw Data - unzipped gz file
-rawData = 'data/test_text3.txt'
+rawData = 'data/apache-access-log.txt'
 textFile = open(rawData, "r")
 
 Lines = []
@@ -15,7 +15,7 @@ for line in textFile:
     line.rstrip()
     line = re.sub(r'[-""]', '', line)
     entry = line.split()
-    Lines.append(line)
+    Lines.append(entry)
 
 print(15*"-")
 print(f'Total items in Lines list: {len(Lines)}')
@@ -34,9 +34,8 @@ print('Producer successfully configured')
 odometer = 0
 for item in Lines:
     data = item
-    producer.send('ipTest8', value=item)
+    producer.send('ipTest15', value=item)
     print(data)
     odometer = odometer + 1
 
 print(f'Number of lines pushed to Kafka: {odometer}')
-

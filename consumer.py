@@ -12,10 +12,11 @@ Attack_Producer = "AttackPush"
 
 # Consumer - Subscribing to Raw Feed from Kafka
 consumer = KafkaConsumer(
-    "ipPush4",
+    "ipTest15",
      bootstrap_servers=['localhost:9092'],
      auto_offset_reset='earliest',
-     enable_auto_commit=True,
+     enable_auto_commit=False,
+     consumer_timeout_ms=60000,
      group_id='my-group',
      value_deserializer=lambda x: loads(x.decode('utf-8')))
 
@@ -24,7 +25,9 @@ print('consumer created')
 # Producer - Sending Attack IP Addresses to Kafka
 producer = KafkaProducer(bootstrap_servers=['localhost:9092'],
                         value_serializer=lambda x: dumps(x).encode('utf-8'))
+
 print('producer created')
+
 # Temp Lists
 ConsumedMessages = []
 Message_Values = []
@@ -33,51 +36,46 @@ AttackIP_1 = []
 Odometer = 0
 TempDict1 = dict()
 print('lists created')
+
+
 # Process Subscription
 
 for message in consumer:
-    print(message)
+    ConsumedMessages.append(message)
+    Message_Values.append(message.value)
 
-# for message in consumer:
-#     # Returns the kafka consumer object, which has meta data in addition to the list of string values
-#     ConsumedMessages.append(message)
-#     # Returns the list of string values pushed by the producer
-#     Message_Values.append(message.value)
-#     # This is the ip address of the message return
-#     ip_address_return = message.value[0]
-#     ip_Addresses.append(ip_address_return)
+    IP_Address = message.value[0]
+    ip_Addresses.append(IP_Address)
 
-    
+   
+    # Add to dictionary or add value to dictionary if entry already exists
+    if IP_Address not in TempDict1:
+        TempDict1[IP_Address] = 1
+    else:
+        TempDict1[IP_Address] = TempDict1[IP_Address] + 1
+        if TempDict1[IP_Address] > 4 and IP_Address not in AttackIP_1:
+            AttackIP_1.append(IP_Address)
+            print(f'Identified as Attack IP: {IP_Address}')
+            producer.send('AttackTest15', value=IP_Address)
+
+            recentAttack = IP_Address
 
 
-#     if ip_address_return not in TempDict1:
-#         TempDict1[ip_address_return] = 1
-#     else:
-#         TempDict1[ip_address_return] = TempDict1[ip_address_return] + 1
-#         if TempDict1[ip_address_return] > 4 and ip_address_return not in AttackIP_1:
-           
-#             # Append Attack IP to AttackIP_1 List
-#             AttackIP_1.append(ip_address_return)
-#             # Send Attack IP to Kafka topic AttackIP
-#             producer.send(Attack_Producer, value=ip_address_return)
+            print(f'Identified as Attack IP: {recentAttack}')
 
-#             print(f'Identified as Attack IP: {ip_address_return}')
-#             recentAttack = ip_address_return
-#     print(f'List item number processed: {Odometer}')
-#     recentAttack = ip_address_return
-# # Identify total number of attacks
-# Total_attacks = 0
-# for item in AttackIP_1:
-#     attacks = TempDict1[item]
-#     Total_attacks = Total_attacks + attacks
+# Identify total number of attacks
+Total_attacks = 0
+for item in AttackIP_1:
+    attacks = TempDict1[item]
+    Total_attacks = Total_attacks + attacks
 
 #  Create Summary Report
 print(15*"-")
 print("Processing Summary")
 print("")
-# print(f'Total items processed:                     {len(ConsumedMessages)}')
-# print(f'Total unique IP Addresses in TempDict1:    {len(TempDict1)}')
-# print(f'Total Attack IP Addresses identified:      {len(AttackIP_1)}')
-# print(f'Total number of individual attacks:        {Total_attacks}')
-# print(f'Example entry of an attack: IP address:    {recentAttack} / number of hits:{TempDict1[recentAttack]}')
-
+print(f'Total messages processed:        {len(ConsumedMessages)}')
+print(f'Total Message Values Collected:  {len(Message_Values)}')
+print(f'Total IP Addresses Collected:    {len(ip_Addresses)}')
+print(f'Total entries in Dictionary:     {len(TempDict1)}')
+print(f'Total attack IP_Addresses:       {len(AttackIP_1)}')
+print(f'Total number of attacks:         {Total_attacks}')
