@@ -4,6 +4,10 @@
 ## Purpose:
 Create a program to simulate a real-time detector of Distributed Denial of Service (DDoS) attacks.<br>
 
+<p align="center">
+<img src="img/Kafka_Flowchart.png" width="700" height="350" title="screenshot">
+</p>
+
 ## Kafka Info
 Apache Kafka is a distributed streaming platform. For more information on Kafka visit <a href="https://kafka.apache.org/">Apache-Kafka</a><br><br>
 Learning Journal has an <a href="https://www.learningjournal.guru/courses/kafka/kafka-foundation-training/">Apache Kafka Foundation Course</a> that I found to be helpful with installing Kafka on Windows 10, testing a local enviornment, and understanding how to create a Producer and Consumer. <br>Although the course introduces you to kafka using Java, I still found it helpful even though I didn't know any Java when I started the course.
