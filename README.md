@@ -59,5 +59,4 @@ Kafka-Python explained in 10 lines of code - <a href="https://towardsdatascience
 <img src="img/kafka_process_stream.png" width="700" height="350" title="screenshot">
 </p>
 
-### Instructions to run the app.py
-Coming Soon!
+
